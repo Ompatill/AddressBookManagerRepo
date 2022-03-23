@@ -12,6 +12,8 @@ public class Contact {
     private String email;
     private String zip;
 
+
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
