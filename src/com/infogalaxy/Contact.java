@@ -3,7 +3,7 @@ package com.infogalaxy;
 import java.util.SplittableRandom;
 
 public class Contact {
-    private String firstName;
+    public String firstName;
     private String lastName;
     private String address;
     private String city;
