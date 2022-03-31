@@ -1,6 +1,10 @@
 import com.infogalaxy.Contact;
 
 import javax.jws.soap.SOAPBinding;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.concurrent.Callable;
@@ -88,8 +92,24 @@ public class AddressBook {
 
         }
     }
+    public void backupToFile() {
+        String conData = null;
+        for (int i = 0; i < contactlist.size(); i++) {
+            Contact contact = contactlist.get(i);
+            conData = contact.getFirstName() + "," + contact.getLastName() + "," + contact.getMobno() +
+                    "," + contact.getAddress() + "," + contact.getAddress() + "," + contact.getCity() + ","
+                    + contact.getState() + "," + contact.getEmail() + "," + contact.getZip() + "\n" + conData;
+        }
+        try {
+            Path file = Paths.get("MyData.txt");
+            byte[] filedata = conData.getBytes();
+            Files.write(file, filedata);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public void deleteContact() {
-        System.out.println("Enter the First Name:");
+        System.out.println("Enter the Fist Name :");
         String delete = sc.next();
         for (int i = 0; i < contactlist.size(); i++) {
             Contact contact = contactlist.get(i);
@@ -105,7 +125,7 @@ public class AddressBook {
         int select;
         do {
             System.out.println("Welcome to Employee Inventory Management");
-            System.out.println("\n1. Add Contact \n2.Display Conatact  \n3.Find Contact \n4.Find State \n5.Delete \n6.Exit");
+            System.out.println("\n1. Add Contact \n2.Display Conatact  \n3.Find Contact \n4.Find State \n5.Delete \n6.BackupContact \n7.Exit");
             System.out.println("Select Any of Your Choice:");
             select = sc.nextInt();
             switch (select) {
@@ -124,9 +144,13 @@ public class AddressBook {
                 case 5:
                     addressBook.deleteContact();
                     break;
+                case 6:
+                    addressBook.backupToFile();
+                    break;
+
 
             }
-        }while (select !=6);
+        }while (select !=7);
 
     }
 }
